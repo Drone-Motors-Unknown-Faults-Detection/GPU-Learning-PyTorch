@@ -142,8 +142,8 @@ if __name__ == '__main__':
 
     print("\n加載 MNIST 數據...")
     # Data 已手動下載至 ./data/MNIST/raw，避免自動下載失敗
-    train_dataset = datasets.MNIST(root='./data', train=True, transform=transform, download=False)
-    test_dataset = datasets.MNIST(root='./data', train=False, transform=transform, download=False)
+    train_dataset = datasets.MNIST(root='./data', train=True, transform=transform, download=True)
+    test_dataset = datasets.MNIST(root='./data', train=False, transform=transform, download=True)
 
     # pin_memory=True 讓 CPU→GPU 資料傳輸更快；num_workers 使用多行程預載資料
     dl_kwargs = get_dataloader_kwargs_for_device(device)
