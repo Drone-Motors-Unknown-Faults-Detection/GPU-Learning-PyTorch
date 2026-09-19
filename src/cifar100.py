@@ -155,7 +155,7 @@ if __name__ == '__main__':
 
     batch_size = 128
     learning_rate = 0.001
-    epochs = 100
+    epochs = 50
 
     # CIFAR-100 官方統計值（各通道 mean/std）
     cifar100_mean = (0.5071, 0.4867, 0.4408)

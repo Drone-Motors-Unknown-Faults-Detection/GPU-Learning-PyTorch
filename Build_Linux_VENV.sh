@@ -15,6 +15,7 @@ echo "[INFO] Install Python3 Required Package"
 venv/bin/pip install -r requirements.txt
 
 echo "[INFO] Install PyTorch with CUDA"
-venv/bin/pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+# venv/bin/pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+venv/bin/pip install torch torchvision
 
 echo "[INFO] Install Completed"

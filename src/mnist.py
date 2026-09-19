@@ -3,6 +3,14 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
+# ---------------------------------------------------------------------------
+# 為了避免 torchvision.datasets.MNIST 會在檢查檔案完整性時使用 .gz 檔的 MD5
+#（而我們只保留了解壓縮後的原始檔），在此將資源的 MD5 設為 None，
+# 讓 check_integrity 只檢查檔案是否存在即可。
+# 這樣即可在離線環境下使用已手動下載並解壓縮的資料。
+from torchvision.datasets import MNIST as TorchMNIST
+# 將所有資源的 md5 設為 None，避免不匹配的檢查
+TorchMNIST.resources = [(url, None) for url, _ in TorchMNIST.resources]
 import time
 from tqdm import tqdm
 from logger import TrainingLogger
@@ -133,8 +141,9 @@ if __name__ == '__main__':
     ])
 
     print("\n加載 MNIST 數據...")
-    train_dataset = datasets.MNIST(root='./data', train=True, transform=transform, download=True)
-    test_dataset = datasets.MNIST(root='./data', train=False, transform=transform, download=True)
+    # Data 已手動下載至 ./data/MNIST/raw，避免自動下載失敗
+    train_dataset = datasets.MNIST(root='./data', train=True, transform=transform, download=False)
+    test_dataset = datasets.MNIST(root='./data', train=False, transform=transform, download=False)
 
     # pin_memory=True 讓 CPU→GPU 資料傳輸更快；num_workers 使用多行程預載資料
     dl_kwargs = get_dataloader_kwargs_for_device(device)
